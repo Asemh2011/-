@@ -7,7 +7,7 @@ document.getElementById('uploadButton').addEventListener('click', function() {
 document.getElementById('imageUploader').addEventListener('change', function(event) {
     const file = event.target.files[0];
     const userImageElement = document.getElementById('userImage');
-
+    
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -19,15 +19,26 @@ document.getElementById('imageUploader').addEventListener('change', function(eve
             }
 
             cropper = new Cropper(userImageElement, {
-                aspectRatio: 1,
+                aspectRatio: 0.8, // تم تعديلها لتجعل مربع القص بيضاويًا
                 viewMode: 1,
-                dragMode: 'move',
-                cropBoxMovable: false,
-                cropBoxResizable: false,
+                dragMode: 'move', // يسمح بتحريك الصورة
+                cropBoxMovable: false, // يمنع تحريك مربع القص
+               cropBoxResizable: false, // يمنع تغيير حجم مربع القص
                 minCropBoxWidth: 100,
                 minCropBoxHeight: 100,
-                autoCropArea: 1.2,
+                autoCropArea: 0.8,
                 ready: function () {
+                    const cropper = this.cropper;
+                    
+                    // تحديد حجم ومكان مربع القص بشكل ثابت
+                    cropper.setCropBoxData({
+                        width: 280, // يمكنك تغيير هذا الحجم
+                        height: 360, // يمكنك تغيير هذا الحجم
+                        left: (cropper.containerData.width - 280) / 2, // تمرير مربع القص أفقيا
+                        top: (cropper.containerData.height - 360) / 2 + 10 // تمرير مربع القص عموديا ورفعه قليلا
+                    });
+
+                    // يجعل مربع القص دائريًا/بيضاويًا
                     this.cropper.cropBox.querySelector('.cropper-face').style.borderRadius = '50%';
                 }
             });
@@ -40,14 +51,11 @@ document.getElementById('imageUploader').addEventListener('change', function(eve
 
 document.getElementById('downloadButton').addEventListener('click', function() {
     if (cropper) {
-        // احصل على الصورة النهائية من Cropper
         const finalImageURL = cropper.getCroppedCanvas({
             width: 500,
             height: 500,
         }).toDataURL('image/png');
 
-        // الآن يمكنك استخدام finalImageURL لدمجها مع الإطار
-        // لدمجها، ستحتاج إلى Canvas جديد
         const finalCanvas = document.createElement('canvas');
         const context = finalCanvas.getContext('2d');
         const frameImage = document.querySelector('.frame-image');
@@ -55,17 +63,12 @@ document.getElementById('downloadButton').addEventListener('click', function() {
         finalCanvas.width = frameImage.offsetWidth;
         finalCanvas.height = frameImage.offsetHeight;
 
-        // رسم الصورة النهائية من Cropper على Canvas
         const croppedImage = new Image();
         croppedImage.src = finalImageURL;
         croppedImage.onload = function() {
-            // رسم الصورة في المنتصف وتحديد حجمها
-            context.drawImage(croppedImage, (finalCanvas.width * 0.2), (finalCanvas.height * 0.2), (finalCanvas.width * 0.6), (finalCanvas.height * 0.6));
-
-            // رسم الإطار فوق الصورة
+            context.drawImage(croppedImage, 0, 0, finalCanvas.width, finalCanvas.height);
             context.drawImage(frameImage, 0, 0, finalCanvas.width, finalCanvas.height);
 
-            // تنزيل الصورة النهائية
             const link = document.createElement('a');
             link.download = 'صورة_العيد_الوطني.png';
             link.href = finalCanvas.toDataURL('image/png');

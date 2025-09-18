@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إطار العيد الوطني</title>
+    <link rel="stylesheet" href="العيد الوطني.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>إطار العيد الوطني لثورة 26 سبتمبر</h1>
+
+        <div class="frame-container">
+            <img src="frame.png" alt="إطار العيد الوطني" class="frame-image">
+            <img id="userImage" src="" alt="صورة المستخدم" class="user-image" style="display: none;">
+        </div>
+
+        <input type="file" id="imageUploader" accept="image/*" style="display: none;">
+        <button id="uploadButton">اختر صورتك</button>
+
+        <button id="downloadButton" style="display: none;">تنزيل الصورة</button>
+    </div>
+
+    <div class="gallery-container">
+        </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="العيد الوطني.js"></script>
+</body>
+</html>

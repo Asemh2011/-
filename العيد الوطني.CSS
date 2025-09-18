@@ -28,7 +28,7 @@ h1 {
 .frame-container {
     position: relative;
     width: 360px;
-  height: 360px;
+    height: 360px;
     overflow: hidden;
 }
 

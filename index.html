@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إطار العيد الوطني</title>
-    <link rel="stylesheet" href="العيد الوطني.CSS">
+    <link rel="stylesheet" href="العيد الوطني.css">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
 </head>
 <body>
 
     <div class="container">
-        <h1>إطار العيد الوطني لثورة 26 سبتمبر</h1>
+        <h1>إطار العيد الوطني</h1>
 
         <div class="frame-container">
+            <img id="userImage" src="" alt="صورة المستخدم" style="display: none;">
             <img src="frame.png" alt="إطار العيد الوطني" class="frame-image">
-            <img id="userImage" src="" alt="صورة المستخدم" class="user-image" style="display: none;">
         </div>
 
         <input type="file" id="imageUploader" accept="image/*" style="display: none;">
@@ -25,7 +27,8 @@
     <div class="gallery-container">
         </div>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="العيد الوطني.JS"></script>
+    <script src="العيد الوطني.js"></script>
 </body>
 </html>
